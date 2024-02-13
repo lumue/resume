@@ -11,4 +11,5 @@
 *.tmp
 *.xref
 
-!cv_template.tex
+!src/cv_template.tex
+/build/

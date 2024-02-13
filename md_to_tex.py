@@ -1,4 +1,3 @@
-import os.path
 import sys
 
 def personal_info_from_md_line(txt):
@@ -152,7 +151,7 @@ class CurriculumVitae():
         return "\n".join(content_lines)
 
     def to_tex(self):
-        tex_template = open("cv_template.tex", "rt").read()
+        tex_template = open("../src/cv_template.tex", "rt").read()
         tex_template = tex_template.replace("$language", self.language)
         tex_template = tex_template.replace("$personal_data", self.personal_data_to_tex())
         tex_template = tex_template.replace("$content", self.content_to_tex())
@@ -161,10 +160,12 @@ class CurriculumVitae():
 
 if __name__ == "__main__":
     src_filename = sys.argv[1]
-    if len(sys.argv) > 2:
-        language = sys.argv[2]
+    out_filename = sys.argv[2]
+    if len(sys.argv) > 3:
+        language = sys.argv[3]
     else:
         language = None
+
     cv = CurriculumVitae(language)
     cv.from_markdown(open(src_filename, "rt").read())
-    open(os.path.splitext(src_filename)[0] + ".tex", "wt").write(cv.to_tex())
+    open(out_filename, "wt").write(cv.to_tex())
